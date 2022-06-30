@@ -47,4 +47,29 @@ print(a*b,'\n') #element-wise multiplication
 print(a@b,'\n') #matrix multiplication
 
 
+c = tf.constant([[4.0,5.0],[10.0,1.0]])
+
+#Find the largest value
+print(tf.reduce_max(c))
+#Find the index of largest value
+print(tf.argmax(c))
+#Compute the softmax
+print(tf.nn.softmax(c))
+
+
+#learning about shapes
+rank_4_tensor = tf.zeros([3,2,4,5])
+print("Type of every element:", rank_4_tensor.dtype)
+print("Number of axes:", rank_4_tensor.ndim)
+print("Shape of tensor:", rank_4_tensor.shape)
+print("Elements along axis 0 of tensor:", rank_4_tensor.shape[0])
+print("Elements along the last axis of tensor:", rank_4_tensor.shape[-1])
+print("Total number of elements (3*2*4*5): ", tf.size(rank_4_tensor).numpy())
+
+#shape = (3,2,4,5)
+#3 indicates number of sets
+#every set has 4 rows(x axis), 2 columns(y axis), 5 set of row column along z axis
+
+
+
 
