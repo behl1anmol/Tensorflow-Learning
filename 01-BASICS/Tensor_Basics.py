@@ -71,5 +71,46 @@ print("Total number of elements (3*2*4*5): ", tf.size(rank_4_tensor).numpy())
 #every set has 4 rows(x axis), 2 columns(y axis), 5 set of row column along z axis
 
 
+#Indexing
+#Rules similar to Python
+print('Single Axis Indexing')
+x = tf.constant([1,2,3,4,5,6,7,8]) #rank 1 tensor
+print(x.numpy())
+
+print('From 2 before 7:', x[2:7].numpy())
+
+#Multi Axis Indexing
+print('Multi Axis Indexing')
+print('RANK 2 TENSOR')
+m_x = tf.constant([[1,2,3,4],[5,6,7,8],[9,10,11,12]]) #rank 2 tensor
+print(m_x.numpy())
+
+print('single element:' ,m_x[2,2].numpy())
+print('from row idx 1 to end and column idx 1 to end:',m_x[1:,1:].numpy())
+
+print('RANK 3 TENSOR')
+m3_x = tf.constant(      #rank 3 tensor shape (2,3,4)
+    [
+        [
+            [1,2,3,100],
+            [4,5,6,200],
+            [12,14,15,300]
+        ],
+        [
+            [7,8,9,400],
+            [10,11,12,500],
+            [16,17,18,600]
+        ]
+    ]
+)
+print(m3_x.numpy())
+print('from batch idx 0 to end, from column idx 1 within a batch to end, starting from idx 2 features till end in every column:\n',m3_x[0:,1:,2:].numpy())
+
+print('selecting last features accross all locations in each batch:\n', m3_x[:,:,-1].numpy())
+
+
+
+
+
 
 
