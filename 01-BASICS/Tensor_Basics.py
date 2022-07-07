@@ -109,6 +109,85 @@ print('from batch idx 0 to end, from column idx 1 within a batch to end, startin
 print('selecting last features accross all locations in each batch:\n', m3_x[:,:,-1].numpy())
 
 
+#Reshaping a tensor
+
+x = tf.constant([[1],[2],[3]])
+print(x.shape)
+
+print("Reshaping x to row vector:")
+reshaped_x = tf.reshape(x,(1,3))
+print(reshaped_x.shape)
+
+print(x.numpy(),'\n',reshaped_x.numpy())
+
+print("re-shaping on rank 3 vector:")
+reshape_m3_x = tf.reshape(m3_x,[1,-1]) #passing -1 will flatten the tensor
+print(reshape_m3_x.shape)
+print(reshape_m3_x.numpy())
+
+#reshaping from (2,3,4) to (3,2,4)
+reshape_m3_x1 = tf.reshape(m3_x, (3,2,4))
+print(reshape_m3_x1.shape)
+print(reshape_m3_x1.numpy())
+
+#reshaping from (2,3,4) to (12,-1) / (12,24)
+reshape_m3_x1 = tf.reshape(m3_x, (3*4,-1))
+print(reshape_m3_x1.shape)
+print(reshape_m3_x1.numpy())
+
+#transposing a tensor from (2,3,4) -> (4,3,2)
+transpose_m3_x = tf.transpose(m3_x)
+print(transpose_m3_x)
+
+
+#Broadcasting in Tensorflow
+print("Broadcasting")
+a = tf.constant(2)
+b = tf.constant([1,2,3])
+
+print(tf.add(a,b)) #adds a to each element of b (Broadcasting)
+
+reshaped_b = tf.reshape(b,[3,1])
+c = tf.constant([1,2,3])
+print(tf.multiply(reshaped_b,c)) #multiply each element of b with c and expands (Broadcasting)
+
+print("broadcasting a vector:", tf.broadcast_to(tf.constant([1,2,3]),[3,3]))
+
+#converting to tensor
+arr = [1,2,3]
+print("converting to tensor:", tf.convert_to_tensor(arr))
+
+#Ragged Tensors
+ragged_tensor = tf.ragged.constant([[1],[2,3],[4,5,6]])
+print("ragged tensor:", ragged_tensor)
+print("ragged tensor shape:", ragged_tensor.shape)
+
+#string Tensors
+string_tensor = tf.constant([b'hello world',b'welcome to tensorflow'])
+print(string_tensor)
+print("String to Number")
+string_number_tensor = tf.constant('10')
+print(tf.strings.to_number(string_number_tensor))
+
+byte_strings = tf.strings.bytes_split(tf.constant("Duck"))
+byte_ints = tf.io.decode_raw(tf.constant("Duck"), tf.uint8)
+print("Byte strings:", byte_strings)
+print("Bytes:", byte_ints)
+
+#sparse tensors
+print("sparse tensors")
+sparse_tensor = tf.sparse.SparseTensor(indices=[[1,0],[0,2]], values=[3,4], dense_shape=[3,3])
+print(sparse_tensor)
+print(tf.sparse.reorder(sparse_tensor)) #reorderes the sparse tensor as large indices supplied before smaller ones
+print(tf.sparse.to_dense(tf.sparse.reorder(sparse_tensor)))
+
+
+
+
+
+
+
+
 
 
 
